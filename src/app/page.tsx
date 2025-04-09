@@ -33,10 +33,11 @@ export default function Home() {
   }, []);
 
   const updateHistory = (newCity: string) => {
-    let updated = [newCity, ...history.filter((c) => c !== newCity)].slice(
+    const updated = [newCity, ...history.filter((c) => c !== newCity)].slice(
       0,
       5
     );
+
     setHistory(updated);
     localStorage.setItem("weather-history", JSON.stringify(updated));
   };
@@ -73,6 +74,7 @@ export default function Home() {
       setWeatherData(formatted);
       updateHistory(formatted.city);
     } catch (err) {
+      console.error(err);
       setError("Error fetching data.");
     } finally {
       setLoading(false);
